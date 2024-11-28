@@ -16,13 +16,18 @@ export class ProductController {
   findAll() {
     return [];
   }
-  @Get('/date') // localhost:4000/api/v1/product
+  @Get('/date') // localhost:4000/api/v1/product/date
   getDate() {
+    // throw new HttpException('เกิดข้อผิดพลาด', HttpStatus.BAD_REQUEST);
     return { server_date: this.utilityService.getServerDate() };
   }
   @Version('2')
   @Get('/thai') // localhost:4000/api/v2/product
   getThaiDate() {
+    // throw new BadRequestException('เกิดข้อผิดพลาด', {
+    //   cause: new Error(),
+    //   description: 'แสดงข้อมูลไม่ได้',
+    // });
     return { server_date: this.globalHelperService.getServerThaiDate() };
   }
 }
