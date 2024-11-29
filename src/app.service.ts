@@ -6,6 +6,9 @@ export class AppService {
     return { message: 'Hello World!' };
   }
   getAPI() {
-    return { API_VERSION: '1.0.0', message: 'NestJS API running...' };
+    return {
+      API_VERSION: process.env.API_VERSION,
+      message: 'NestJS API running...',
+    };
   }
 }
