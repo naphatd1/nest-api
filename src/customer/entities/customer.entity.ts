@@ -1,13 +1,16 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table({
   tableName: 'customers',
   timestamps: false,
 })
 export class Customer extends Model {
-  @Column({})
+  @Column({
+    type: DataType.STRING(200),
+    allowNull: false,
+  })
   fullname: string;
 
-  @Column({})
+  @Column({ defaultValue: false })
   isActive: boolean;
 }
