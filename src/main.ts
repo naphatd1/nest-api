@@ -1,12 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { VersioningType } from '@nestjs/common';
+import { HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // global prefix
   app.setGlobalPrefix('api');
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY, // 422 default is 400
+    }),
+  );
 
   // open api versioning
   app.enableVersioning({
