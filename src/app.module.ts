@@ -27,11 +27,11 @@ import { Customer } from './customer/entities/customer.entity';
       // sync: {}, // สร้างเฉพาะตารางที่ยังไม่มี
       // sync: { force: true }, // ลบตารางทั้งหมด แล้วสร้างใหม่ (ระวัง data หาย)
       sync: { alter: true }, // ไม่ลบตาราง แก้เฉพาะคอลัมน์นั้นๆ (ระวัง data คอลัมน์ที่แก้หายด้วย)
-      // pool: {
-      //   max: 10, // จำนวน connection สูงสุดใน pool
-      //   min: 0, // จำนวน connection ขั้นต่ำใน pool
-      //   idle: 30000, // ปล่อย connection ถ้าไม่ได้ใช้งานเกิน 30 วินาที
-      // },
+      pool: {
+        max: 10, // จำนวน connection สูงสุดใน pool
+        min: 0, // จำนวน connection ขั้นต่ำใน pool
+        idle: 30000, // ปล่อย connection ถ้าไม่ได้ใช้งานเกิน 30 วินาที
+      },
     }),
     ProductModule,
     UtilityModule,

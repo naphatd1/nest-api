@@ -14,12 +14,12 @@ export class CustomerService {
     return createCustomerDto;
   }
 
-  async findAll() {
+  async findAll(): Promise<Customer[]> {
     return await this.customerModel.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} customer`;
+  async findOne(id: number) {
+    return await this.customerModel.findByPk(id);
   }
 
   update(id: number, updateCustomerDto: UpdateCustomerDto) {
