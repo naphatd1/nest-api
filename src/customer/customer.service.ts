@@ -40,6 +40,7 @@ export class CustomerService {
   async remove(id: number) {
     const numberOfDrestroyRow = await this.customerModel.destroy({
       where: { id: id },
+      force: true,
     });
     return numberOfDrestroyRow;
   }

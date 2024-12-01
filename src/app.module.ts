@@ -9,6 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize';
 import { Customer } from './customer/entities/customer.entity';
+import { AuthModule } from './auth/auth.module';
+import { User } from './auth/entities/user.entity';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { Customer } from './customer/entities/customer.entity';
       database: process.env.DB_DATABASE,
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      models: [Customer],
+      models: [Customer, User],
       autoLoadModels: true,
       // sync: {}, // สร้างเฉพาะตารางที่ยังไม่มี
       // sync: { force: true }, // ลบตารางทั้งหมด แล้วสร้างใหม่ (ระวัง data หาย)
@@ -37,6 +39,7 @@ import { Customer } from './customer/entities/customer.entity';
     UtilityModule,
     GlobalHelperModule,
     CustomerModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
