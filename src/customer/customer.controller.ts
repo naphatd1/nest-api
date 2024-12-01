@@ -42,7 +42,7 @@ export class CustomerController {
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    const [affectedCount] = await this.customerService.update(
+    const affectedCount = await this.customerService.update(
       +id,
       updateCustomerDto,
     );
