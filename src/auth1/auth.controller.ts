@@ -1,7 +1,15 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller({
   path: 'auth', // localhost:4000/api/v1/auth
@@ -10,6 +18,7 @@ import { LoginDto } from './dto/login.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @UseGuards(JwtAuthGuard)
   // localhost:4000/api/v1/auth/register
   @Post('register')
   @HttpCode(201)
@@ -19,7 +28,9 @@ export class AuthController {
       message: 'ลงทะเบียนสำเร็จ',
     };
   }
-  @Get() // localhost:4000/api/v1/auth/register
+  // localhost:4000/api/v1/auth/register
+  @UseGuards(JwtAuthGuard)
+  @Get()
   findAll() {
     return this.authService.findAll();
   }

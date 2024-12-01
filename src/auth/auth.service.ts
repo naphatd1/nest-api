@@ -59,4 +59,11 @@ export class AuthService {
     });
     return { access_token: token };
   }
+
+  // get user profile
+  async getUserProfile(id: number) {
+    return await this.userModel.findByPk(id, {
+      attributes: ['id', 'fullname', 'email', 'password'],
+    });
+  }
 }
