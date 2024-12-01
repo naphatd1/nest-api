@@ -31,9 +31,10 @@ export class CustomerService {
   }
 
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return await this.customerModel.update(updateCustomerDto, {
+    const affectedCount = await this.customerModel.update(updateCustomerDto, {
       where: { id: id },
     });
+    return affectedCount;
   }
 
   async remove(id: number) {

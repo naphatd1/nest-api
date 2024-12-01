@@ -38,11 +38,20 @@ export class CustomerController {
   }
 
   @Patch(':id') // localhost:4000/api/v1/customer/1
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    return this.customerService.update(+id, updateCustomerDto);
+    const [affectedCount] = await this.customerService.update(
+      +id,
+      updateCustomerDto,
+    );
+    if (affectedCount === 0) {
+      throw new NotFoundException('ไม่พบข้อมูลที่ต้องการแก้ไข');
+    }
+    return {
+      message: 'แก้ไขข้อมูลสำเร็จ',
+    };
   }
 
   @Delete(':id') // localhost:4000/api/v1/customer/1
