@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -19,8 +20,11 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post() // localhost:4000/api/v1/customer
-  create(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.customerService.create(createCustomerDto);
+  async create(@Body() createCustomerDto: CreateCustomerDto) {
+    await this.customerService.create(createCustomerDto);
+    return {
+      message: 'สมัครสำเร็จ',
+    };
   }
 
   @Get() // localhost:4000/api/v1/customer
@@ -42,7 +46,13 @@ export class CustomerController {
   }
 
   @Delete(':id') // localhost:4000/api/v1/customer/1
-  remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const numberOfDestroyRow = await this.customerService.remove(+id);
+    if (numberOfDestroyRow === 0) {
+      throw new NotFoundException('ไม่พบข้อมูลที่ต้องการลบ');
+    }
+    return {
+      message: 'ลบข้อมูลสำเร็จ',
+    };
   }
 }
