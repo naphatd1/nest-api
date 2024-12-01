@@ -7,9 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    JwtModule.register({
-      signOptions: { expiresIn: '7d' },
-    }),
+    JwtModule.register({ signOptions: { expiresIn: '6d' } }),
     SequelizeModule.forFeature([User]),
   ],
   controllers: [AuthController],
